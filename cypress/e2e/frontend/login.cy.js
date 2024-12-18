@@ -1,22 +1,26 @@
-
 import LoginPage from '../../support/pageObjects/LoginPage';
+import credentials from '../../fixtures/credentials.json';
 
 describe('Teste de Login no Frontend', () => {
-  beforeEach(() => {
-    LoginPage.visit();
-  });
+    beforeEach(() => {
+        LoginPage.visit();
+    });
 
-  it('Deve realizar login com sucesso', () => {
-    LoginPage.fillEmail('arthurbm15@gmail.com');
-    LoginPage.fillPassword('12345');
-    LoginPage.submit();
-    LoginPage.assertLoginSuccess();
-  });
+    it('Deve realizar login com sucesso', () => {
+        const { email, password } = credentials.validUser;
+        LoginPage.login(email, password);
+        LoginPage.assertLoginSuccess();
+    });
 
-  it('Deve falhar com credenciais inválidas', () => {
-    LoginPage.fillEmail('invalid@example.com');
-    LoginPage.fillPassword('wrongpassword');
-    LoginPage.submit();
-    LoginPage.assertLoginFailure();
-  });
+    it('Deve realizar login com sucesso utilizando senha longa e caracteres especiais', () => {
+        const { email, password } = credentials.specialCharacterUser;
+        LoginPage.login(email, password);
+        LoginPage.assertLoginSuccess();
+    });
+
+    it('Deve falhar com credenciais inválidas', () => {
+        const { email, password } = credentials.invalidUser;
+        LoginPage.login(email, password);
+        LoginPage.assertLoginFailure();
+    });
 });

@@ -16,6 +16,12 @@ class LoginPage {
     cy.get('button[type="submit"]').click();
   }
 
+  login(email, password) {
+    this.fillEmail(email);
+    this.fillPassword(password);
+    this.submit();
+  }
+
   assertLoginSuccess() {
     cy.url().should('include', '/home');
   }
