@@ -9,7 +9,7 @@ class LoginPage {
   }
 
   fillPassword(password) {
-    cy.get('input[name="password"]').type(password);
+    cy.get('input[name="password"]').type(password, { parseSpecialCharSequences: false });
   }
 
   submit() {
